@@ -19,11 +19,17 @@
   </ion-header>
   <ion-content>
     <ion-list>
-      <ion-list-header>Files</ion-list-header>
       <ion-item *ngFor="let document of documents">
         <ion-icon name="document" slot="start"></ion-icon>
+
+        <!-- Conditionally mask password with asterisks -->
         <ion-label>
-          {{ document.name }}
+          <ng-container *ngIf="document.name === 'Password'; else normalText">
+            {{ esconderPassword(user.password) }}
+          </ng-container>
+          <ng-template #normalText>
+            {{ document.name }}
+          </ng-template>
         </ion-label>
         <ion-button fill="clear" slot="end" (click)="presentActionSheet(document)">
           <ion-icon name="ellipsis-horizontal"></ion-icon>

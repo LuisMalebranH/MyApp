@@ -1,10 +1,16 @@
 import { Component, OnInit, ElementRef, Input, Renderer2, ViewChild} from '@angular/core';
 import { AfterViewInit } from '@angular/core';
-import { NavigationExtras} from '@angular/router';
+import { NavigationStart, NavigationEnd, NavigationExtras} from '@angular/router';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { ActionSheetController, ModalController, AlertController } from '@ionic/angular';
 
+interface User {
+  usuario: string;
+  password: string;
+}
+/*Mover interface a un archivo único de Typescript en caso de necesitarla en el futuro, si no, solo se queda aca,
+que sea un problema para el luis del futuro*/ 
 
 @Component({
   selector: 'app-home',
@@ -14,27 +20,64 @@ import { ActionSheetController, ModalController, AlertController } from '@ionic/
 export class HomePage implements OnInit, AfterViewInit {
 
   documents: { name: string }[] = [
-    { name: 'Ionic.sketch' },
-    { name: 'Envudu.sketch' },
-    { name: 'Fazescardgame.sketch' },
-    { name: 'Lucidchart.sketch' }
+    { name: 'Usuario' },
+    { name: 'Password' },
+    { name: 'Inventarios' }
   ];
+
+  user: User = { usuario: '', password: '' };
 
   constructor(
     private actionSheetCtrl: ActionSheetController,
     private modalCtrl: ModalController,
     private toastCtrl: ToastController,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private router: Router
   ) {}
 
-  ngOnInit() {
-    // Initialization logic here
+  esconderPassword(password: string): string {
+    if (password) {
+      return password ? '*'.repeat(password.length) : '';  // enmascara cada caracter con asteristos
+    }
+    return '';
   }
+
+  ngOnInit() {
+    this.router.events.subscribe( event => {
+      if (event instanceof NavigationEnd){
+      const navigation = this.router.getCurrentNavigation();
+
+      if (navigation?.extras?.state) {
+        const state =navigation.extras.state as { user: User };
+        this.user = state?.user || { usuario: '', password: '' }; /* esto es un crimen que voy a arreglar despues*/
+
+        /*let navigationExtras: NavigationExtras = {
+          state: {user: this.login}
+        }; */
+        console.log(navigation.extras.state);
+        console.log('User data:', this.user);
+
+        if (this.user) {
+          this.documents = this.documents.map(doc => {
+            if (doc.name === 'Usuario') {
+              return { name: this.user.usuario ?? 'Usuario' }; 
+            } else if (doc.name === 'Password') {
+              return { name: this.esconderPassword(this.user.password || '')}; 
+            } else {
+              return doc;
+            }
+          });
+        }
+      } else {
+        console.log('no state found');
+      }
+    }
+ });
+}
 
   ngAfterViewInit() {
     // Logic to run after the view has been initialized
   }
-
   async presentActionSheet(document: { name: string }) {
     const actionSheet = await this.actionSheetCtrl.create({
       header: document.name,
@@ -47,7 +90,7 @@ export class HomePage implements OnInit, AfterViewInit {
           }
         },
         {
-          text: 'Cambiar Nombre',
+          text: 'Cambiar',
           handler: () => {
             // Wait until the action sheet dismisses
             this.actionSheetCtrl.dismiss().then(() => {
@@ -90,8 +133,8 @@ export class HomePage implements OnInit, AfterViewInit {
       header: 'Renombrar Campo',
       inputs: [
         {
-          name: 'title',
-          placeholder: 'Title',
+          name: 'Renombrar Campo',
+          placeholder: 'Renombrar Campo',
           value: document.name
         }
       ],
