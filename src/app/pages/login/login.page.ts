@@ -24,13 +24,13 @@ field:string="";
   }
   ingreso(){
     if(this.validateModel(this.login)){
-      this.presentToast("top","Welcomepage@");
+      this.presentToast("top","Bienvenido");
       let navigationExtras: NavigationExtras = {
         state: {user: this.login}
       };
       this.router.navigate(['/home'],navigationExtras);
     }else{
-      this.presentToast("middle", "Error - Falta: " + this.field,5000);
+      this.presentToast("middle", "Error - Falta: " + this.field,1500);
     }
   }
 
