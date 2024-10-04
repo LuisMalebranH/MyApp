@@ -18,7 +18,7 @@ que sea un problema para el luis del futuro*/
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit, AfterViewInit {
-
+  showElement = false;
   documents: { name: string }[] = [
     { name: 'Usuario' },
     { name: 'Password' },

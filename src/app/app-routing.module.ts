@@ -20,6 +20,23 @@ const routes: Routes = [
     loadChildren: () => 
       import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
+  {
+    path: 'forgot-password',
+    loadChildren: () => import('./forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
+  },
+  {
+    path: 'register',
+    loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
+  },
+  { 
+    path: 'forgot-password', loadChildren: () => import('./forgot-password/forgot-password.module').then(m => m.ForgotPasswordPageModule) 
+
+  },
+  { 
+    path: 'register', loadChildren: () => import('./register/register.module').then(m => m.RegisterPageModule)
+
+  },
+
 ];
 @NgModule({
   imports: [
@@ -28,3 +45,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule {}
+
