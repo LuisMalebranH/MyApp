@@ -7,7 +7,7 @@ import { ToastController } from '@ionic/angular';
   styleUrls: ['./forgot-password.page.scss'],
 })
 export class ForgotPasswordPage {
-  email: string;
+  email!: string;
 
   constructor(private toastController: ToastController) {}
 
