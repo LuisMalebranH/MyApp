@@ -17,8 +17,7 @@ const routes: Routes = [
   },
   {
     path: 'tabs',
-    loadChildren: () => 
-      import('./tabs/tabs.module').then(m => m.TabsPageModule)
+    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
   {
     path: 'forgot-password',
@@ -29,11 +28,13 @@ const routes: Routes = [
     loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
   },
   { 
-    path: 'forgot-password', loadChildren: () => import('./forgot-password/forgot-password.module').then(m => m.ForgotPasswordPageModule) 
+    path: 'forgot-password', 
+    loadChildren: () => import('./forgot-password/forgot-password.module').then(m => m.ForgotPasswordPageModule) 
 
   },
   { 
-    path: 'register', loadChildren: () => import('./register/register.module').then(m => m.RegisterPageModule)
+    path: 'register', 
+    loadChildren: () => import('./register/register.module').then(m => m.RegisterPageModule)
 
   },
 
