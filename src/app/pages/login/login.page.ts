@@ -34,10 +34,6 @@ field:string="";
     }
   }
 
-  forgotPassword() {
-    this.router.navigate(['/forgot-password']);
-  }
-
   validateModel(model:any){
     for(var [key,value] of Object.entries(model)){
       if(value == ""){
