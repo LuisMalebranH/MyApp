@@ -4,6 +4,7 @@
 
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+
 export const environment = {
   production: false
   firebase: {
@@ -14,7 +15,7 @@ export const environment = {
     messagingSenderId: "315664327262",
     appId: "1:315664327262:web:73ad80845c3fbe4b360acf",
     measurementId: "G-XT1615QG4M"
-  },
+  }
   
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
