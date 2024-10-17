@@ -9,7 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AngularFireAuth, AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { environment } from 'src/environments/environment';
 
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async'
@@ -18,7 +18,13 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
   declarations: [AppComponent],
 
 
-  imports: [BrowserModule, BrowserAnimationsModule, IonicModule.forRoot(), AppRoutingModule],
+  imports: [BrowserModule, 
+            BrowserAnimationsModule, 
+            IonicModule.forRoot(), 
+            AppRoutingModule, 
+            AngularFireModule.initializeApp(environment.firebase),
+            AngularFireAuthModule
+          ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy}, provideAnimationsAsync()],
   bootstrap: [AppComponent],
 })
