@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationExtras} from '@angular/router';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -16,6 +17,26 @@ export class LoginPage implements OnInit {
     usuario:"",
     password:""
   }
+  /*
+Contructor (private authService: authService) {}
+
+async login(){
+  try{
+    await this.authService.login(this.email,this.password);
+    console.log('login exitoso');
+}catch(error){
+  console.error('error de login:'error);
+
+}
+
+}
+async logout(){
+  
+    await this.authService.logout();
+    console.log('logout exitoso');
+}
+}
+*/
 
 field:string="";
   constructor(public router:Router, public toastController:ToastController) { }
