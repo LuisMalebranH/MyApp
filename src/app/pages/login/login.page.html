@@ -18,6 +18,11 @@
           <ion-input label="Password" labelPlacement="floating" type="password" [(ngModel)]="login.password"></ion-input>
         </ion-item>
         <ion-row>
+          <ion-col class="ion-text" >
+            <a class="olvidarPassword" (click)="forgotPassword()">Olvidaste tu contraseña?</a>
+          </ion-col>
+        </ion-row>
+        <ion-row>
           <ion-col>
             <ion-button  expand="block" (click)="ingreso()" >Ingresar</ion-button>
           </ion-col>

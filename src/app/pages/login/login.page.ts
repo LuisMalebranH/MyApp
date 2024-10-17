@@ -33,6 +33,9 @@ field:string="";
       this.presentToast("middle", "Error - Falta: " + this.field,1500);
     }
   }
+  forgotPassword() {
+    this.router.navigate(['/forgot-password']);
+  }
 
   validateModel(model:any){
     for(var [key,value] of Object.entries(model)){
