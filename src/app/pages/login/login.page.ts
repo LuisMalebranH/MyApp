@@ -11,39 +11,51 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 
 
-export class LoginPage implements OnInit {
+export class LoginPage {
 
-  login:any={
+  email!: string | 'example@email.com';
+  password!: string | "";
+
+
+ /* login:any={
     usuario:"",
-    password:""
-  }
-  /*
-Contructor (private authService: authService) {}
+    email:"",
+    password:""}*/
 
-async login(){
-  try{
-    await this.authService.login(this.email,this.password);
-    console.log('login exitoso');
-}catch(error){
-  console.error('error de login:'error);
 
-}
 
-}
-async logout(){
+  constructor(public router:Router, public toastController:ToastController, private authService: AuthService) { }
+
+  ngOnInit() {}
+  async login(){
+    try{
+      await this.authService.login(this.email,this.password);
+      console.log('login exitoso');
+    }catch(error){
+    console.error('error de login:', error);
   
-    await this.authService.logout();
-    console.log('logout exitoso');
-}
-}
-*/
-
-field:string="";
-  constructor(public router:Router, public toastController:ToastController, private authService: authService) { }
-
-  ngOnInit() {
   }
-  ingreso(){
+  
+  }
+    async logout(){
+    
+      await this.authService.logout();
+      console.log('logout exitoso');
+    }
+  
+
+  //notificaciones toast para cada accion, se escrie la posición y duración 
+  async presentToast(position: 'top' |'middle' | 'bottom', msg:string, duration?:number){
+    const toast = await this.toastController.create({
+      message: msg,
+      duration: duration?duration:2500,
+      position: position,
+    });
+    await toast.present();
+  }
+}
+
+/*ingreso(){
     if(this.validateModel(this.login)){
       this.presentToast("top","Bienvenido");
       let navigationExtras: NavigationExtras = {
@@ -66,34 +78,7 @@ field:string="";
       }
     }
     return true;
-  }
-
-  //notificaciones toast para cada accion, se escrie la posición y duración 
-  async presentToast(position: 'top' |'middle' | 'bottom', msg:string, duration?:number){
-    const toast = await this.toastController.create({
-      message: msg,
-      duration: duration?duration:2500,
-      position: position,
-    });
-    await toast.present();
-  }
-  async login(){
-  try{
-    await this.authService.login(this.email,this.password);
-    console.log('login exitoso');
-}catch(error){
-  console.error('error de login:'error);
-
-}
-
-}
-async logout(){
-  
-    await this.authService.logout();
-    console.log('logout exitoso');
-}
-}
-
+  }*/
 
 /*
 @Component({
@@ -123,3 +108,23 @@ export class Login Page {
     }
   }
 } */
+
+    /*
+
+async login(){
+  try{
+    await this.authService.login(this.email,this.password);
+    console.log('login exitoso');
+}catch(error){
+  console.error('error de login:'error);
+
+}
+
+}
+async logout(){
+  
+    await this.authService.logout();
+    console.log('logout exitoso');
+}
+}
+*/
