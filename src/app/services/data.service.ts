@@ -2,12 +2,20 @@ import { Injectable } from '@angular/core';
 import {AngularFirestore} from '@angular/fire/compat/firestore'
 import {Observable} from 'rxjs';
 
+interface Usuario {
+
+  email: string;
+  nombre: string;
+  password: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
-  private users: any[] = [];
+  
+  private usuarios: Usuario[] = [];
   private inventory: any[] = [];
   private images: string[] = [];  // Placeholder mientras se preparan los modulos para las imagenes.
 
@@ -20,7 +28,7 @@ export class DataService {
   
   // güetiar los Arrays
   getUsuario() {
-    return this.users;
+    return this.firestore.collection('usuarios').valueChanges();
   }
 
   getInventario() {
@@ -32,8 +40,9 @@ export class DataService {
   }
 
   // añadir cosas a los arryas
-  addUsuario(user: any) {
-    this.users.push(user);
+  addUsuario(usuarios: Usuario) {
+    this.usuarios.push(usuarios);
+    return this.firestore.collection('users').add(usuarios);
   }
 
   addItemInventario(item: any) {
