@@ -13,8 +13,8 @@ import { AuthService } from 'src/app/services/auth.service';
 
 export class LoginPage {
 
-  email!: string | 'example@email.com';
-  password!: string | "";
+  email: string = 'example@email.com';
+  password: string = '';
 
 
  /* login:any={
@@ -31,8 +31,10 @@ export class LoginPage {
     try{
       await this.authService.login(this.email,this.password);
       console.log('login exitoso');
-    }catch(error){
-    console.error('error de login:', error);
+      this.router.navigate(['/home']);
+    }catch (error) {
+      console.error('Error de login:', error);
+      this.presentToast('middle', 'Error de login. Intente nuevamente.');
   
   }
   
@@ -42,7 +44,25 @@ export class LoginPage {
       await this.authService.logout();
       console.log('logout exitoso');
     }
-  
+
+    forgotPassword() {
+      this.router.navigate(['/forgot-password']);
+    }
+    
+    register(){
+      this.router.navigate(['/register']);
+    }
+
+
+    validateModel(model:any){
+      for(var [key, value] of Object.entries(model)){
+        if(value === ''){
+          this.presentToast('bottom', 'Error - Falta ${key}');
+          return false;
+        }
+      }
+      return true;
+    }
 
   //notificaciones toast para cada accion, se escrie la posición y duración 
   async presentToast(position: 'top' |'middle' | 'bottom', msg:string, duration?:number){
@@ -53,6 +73,8 @@ export class LoginPage {
     });
     await toast.present();
   }
+
+  
 }
 
 /*ingreso(){
@@ -66,19 +88,9 @@ export class LoginPage {
       this.presentToast("middle", "Error - Falta: " + this.field,1500);
     }
   }
-  forgotPassword() {
-    this.router.navigate(['/forgot-password']);
-  }
+  
 
-  validateModel(model:any){
-    for(var [key,value] of Object.entries(model)){
-      if(value == ""){
-        this.field = key;
-        return false;
-      }
-    }
-    return true;
-  }*/
+  */
 
 /*
 @Component({
@@ -108,8 +120,7 @@ export class Login Page {
     }
   }
 } */
-
-    /*
+/*
 
 async login(){
   try{

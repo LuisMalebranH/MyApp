@@ -12,10 +12,10 @@
       </ion-card-header> 
       <ion-card-content class="ion-content-center" >
         <ion-item>
-          <ion-input label="Usuario" labelPlacement="floating" [(ngModel)]="login.usuario"></ion-input>
+          <ion-input label="Usuario" labelPlacement="floating" [(ngModel)]="email"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-input label="Password" labelPlacement="floating" type="password" [(ngModel)]="login.password"></ion-input>
+          <ion-input label="Password" labelPlacement="floating" type="password" [(ngModel)]="password"></ion-input>
         </ion-item>
         <ion-row>
           <ion-col class="ion-text" >
@@ -24,7 +24,10 @@
         </ion-row>
         <ion-row>
           <ion-col>
-            <ion-button  expand="block" (click)="ingreso()" >Ingresar</ion-button>
+            <ion-button  expand="block" (click)="login()">Ingresar</ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button  expand="block" (click)="register()">Registrar</ion-button>
           </ion-col>
         </ion-row>
       </ion-card-content>
