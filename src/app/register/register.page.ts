@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { DataService } from 'src/app/services/data.service'
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
@@ -10,7 +11,7 @@ import { DataService } from 'src/app/services/data.service'
 export class RegisterPage {
   
 
-    user = {
+    Usuario = {
       email: '',
       nombre: '',
       password: ''
@@ -25,19 +26,19 @@ export class RegisterPage {
     async onSubmit(registerForm: NgForm) {
       if (registerForm.valid) {
         // llama los metodos de data service
-        this.dataService.addUsuario(this.user);
-        console.log('User registered:', this.user);
+        this.dataService.addUsuario(this.Usuario);
+        console.log('User registered:', this.Usuario);
   
         // Show a success toast notification
         const toast = await this.toastController.create({
-          message: 'Cuenta creada exitosamente para ' + this.user.email,
+          message: 'Cuenta creada exitosamente para ' + this.Usuario.email,
           duration: 2000,
           position: 'top',
         });
         toast.present();
   
         // Clear the form after submission
-        this.user = { nombre: '', email: '', password: '' };
+        this.Usuario = { nombre: '', email: '', password: '' };
         registerForm.resetForm();
       }
     }

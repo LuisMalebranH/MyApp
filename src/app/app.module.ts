@@ -4,6 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { FormsModule } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,6 +22,8 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
   imports: [BrowserModule, 
             BrowserAnimationsModule, 
             IonicModule.forRoot(), 
+            FormsModule,
+            NgForm,
             AppRoutingModule, 
             AngularFireModule.initializeApp(environment.firebase),
             AngularFireAuthModule
