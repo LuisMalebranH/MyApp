@@ -39,7 +39,7 @@ export class DataService {
     return this.images; // cambiar para que funcione con imagenes
   }
 
-  // añadir cosas a los arryas
+  // añadir cosas a los arrays
   addUsuario(usuarios: Usuario) {
     this.usuarios.push(usuarios);
     return this.firestore.collection('users').add(usuarios);
