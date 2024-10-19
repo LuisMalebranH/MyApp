@@ -23,7 +23,6 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
             BrowserAnimationsModule, 
             IonicModule.forRoot(), 
             FormsModule,
-            NgForm,
             AppRoutingModule, 
             AngularFireModule.initializeApp(environment.firebase),
             AngularFireAuthModule
