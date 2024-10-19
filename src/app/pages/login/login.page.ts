@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationExtras} from '@angular/router';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -10,42 +11,58 @@ import { ToastController } from '@ionic/angular';
 })
 
 
-export class LoginPage implements OnInit {
+export class LoginPage {
 
-  login:any={
+  email: string = 'example@email.com';
+  password: string = '';
+
+
+ /* login:any={
     usuario:"",
-    password:""
-  }
+    email:"",
+    password:""}*/
 
-field:string="";
-  constructor(public router:Router, public toastController:ToastController) { }
 
-  ngOnInit() {
+
+  constructor(public router:Router, public toastController:ToastController, private authService: AuthService) { }
+
+  ngOnInit() {}
+  async login(){
+    try{
+      await this.authService.login(this.email,this.password);
+      console.log('login exitoso');
+      this.router.navigate(['/home']);
+    }catch (error) {
+      console.error('Error de login:', error);
+      this.presentToast('middle', 'Error de login. Intente nuevamente.');
+  
   }
-  ingreso(){
-    if(this.validateModel(this.login)){
-      this.presentToast("top","Bienvenido");
-      let navigationExtras: NavigationExtras = {
-        state: {user: this.login}
-      };
-      this.router.navigate(['/home'],navigationExtras);
-    }else{
-      this.presentToast("middle", "Error - Falta: " + this.field,1500);
+  
+  }
+    async logout(){
+    
+      await this.authService.logout();
+      console.log('logout exitoso');
     }
-  }
-  forgotPassword() {
-    this.router.navigate(['/forgot-password']);
-  }
 
-  validateModel(model:any){
-    for(var [key,value] of Object.entries(model)){
-      if(value == ""){
-        this.field = key;
-        return false;
+    forgotPassword() {
+      this.router.navigate(['/forgot-password']);
+    }
+    
+    register(){
+      this.router.navigate(['/register']);
+    }
+
+
+    validateModel(model:any){
+      for(var [key, value] of Object.entries(model)){
+        if(value === ''){
+          this.presentToast('bottom', 'Error - Falta ${key}');
+          return false;
+        }
       }
+      return true;
     }
-    return true;
-  }
 
   //notificaciones toast para cada accion, se escrie la posición y duración 
   async presentToast(position: 'top' |'middle' | 'bottom', msg:string, duration?:number){
@@ -56,8 +73,24 @@ field:string="";
     });
     await toast.present();
   }
+
+  
 }
 
+/*ingreso(){
+    if(this.validateModel(this.login)){
+      this.presentToast("top","Bienvenido");
+      let navigationExtras: NavigationExtras = {
+        state: {user: this.login}
+      };
+      this.router.navigate(['/home'],navigationExtras);
+    }else{
+      this.presentToast("middle", "Error - Falta: " + this.field,1500);
+    }
+  }
+  
+
+  */
 
 /*
 @Component({
@@ -87,3 +120,22 @@ export class Login Page {
     }
   }
 } */
+/*
+
+async login(){
+  try{
+    await this.authService.login(this.email,this.password);
+    console.log('login exitoso');
+}catch(error){
+  console.error('error de login:'error);
+
+}
+
+}
+async logout(){
+  
+    await this.authService.logout();
+    console.log('logout exitoso');
+}
+}
+*/

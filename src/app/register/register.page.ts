@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ToastController } from '@ionic/angular';
+import { DataService } from 'src/app/services/data.service'
 
 @Component({
   selector: 'app-register',
@@ -7,65 +8,50 @@ import { ToastController } from '@ionic/angular';
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage {
-  user = {
-    name: '',
-    email: '',
-    password: ''
-  };
+  
 
-  constructor(private toastController: ToastController) {}
-
-  async onSubmit() {
-    // Aquí puedes implementar la lógica para registrar al usuario
-    // Esto puede incluir llamar a un servicio que se comunique con tu backend
-    if (this.user.name && this.user.email && this.user.password) {
-      // Simular registro exitoso
-      const toast = await this.toastController.create({
-        message: 'Cuenta creada exitosamente para ' + this.user.email,
-        duration: 2000,
-        position: 'top',
-      });
-      toast.present();
-      this.user = { name: '', email: '', password: '' }; // Limpiar el formulario
+    user = {
+      email: '',
+      nombre: '',
+      password: ''
+    };
+  
+    constructor(
+      private toastController: ToastController, 
+      private dataService: DataService
+    ) {}
+  
+  
+    async onSubmit(registerForm: NgForm) {
+      if (registerForm.valid) {
+        // llama los metodos de data service
+        this.dataService.addUsuario(this.user);
+        console.log('User registered:', this.user);
+  
+        // Show a success toast notification
+        const toast = await this.toastController.create({
+          message: 'Cuenta creada exitosamente para ' + this.user.email,
+          duration: 2000,
+          position: 'top',
+        });
+        toast.present();
+  
+        // Clear the form after submission
+        this.user = { nombre: '', email: '', password: '' };
+        registerForm.resetForm();
+      }
+    }
+  
+    // Optional function to handle manual user registration (if needed separately)
+    registerUser() {
+      const newUser = {
+        email: 'user@example.com',
+        nombre: 'John Doe',
+        password: 'password123'
+      };
+  
+      // Add the user using the data service
+      this.dataService.addUsuario(newUser);
+      console.log('User registered:', this.dataService.getUsuario());  // Assuming getUsers() returns the list of users
     }
   }
-}
-
-/* import { Component } from '@angular/core';
-import { DataService } from 'src/app/services/data.service';
-
-@Component({
-  selector: 'app-registration',
-  templateUrl: './registration.page.html',
-  styleUrls: ['./registration.page.scss'],
-})
-export class RegistrationPage {
-
-  constructor(private dataService: DataService) {}
-
-  registerUser(user: any) {
-    this.dataService.addUser(user);
-    console.log('User registered:', this.dataService.getUsers());
-  }
-
-  addInventoryItem(item: any) {
-    this.dataService.addInventoryItem(item);
-  }
-
-  uploadImage(image: string) {
-    this.dataService.addImage(image);
-  }
-} */
- // COmo alternativa usar local storage en caso de que firebase no funcione.
-  /* 
-  registerUser(user: any) {
-  this.users.push(user);
-  localStorage.setItem('users', JSON.stringify(this.users));
-}
-
-getUsersFromStorage() {
-  const storedUsers = localStorage.getItem('users');
-  if (storedUsers) {
-    this.users = JSON.parse(storedUsers);
-  }
-} */
