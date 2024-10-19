@@ -27,16 +27,21 @@ export class LoginPage {
   constructor(public router:Router, public toastController:ToastController, private authService: AuthService) { }
 
   ngOnInit() {}
-  async login(){
-    try{
-      await this.authService.login(this.email,this.password);
-      console.log('login exitoso');
-      this.router.navigate(['/home']);
-    }catch (error) {
-      console.error('Error de login:', error);
-      this.presentToast('middle', 'Error de login. Intente nuevamente.');
-  
-  }
+  async login() {
+    if (!this.email || !this.password) {
+      this.presentToast('bottom', 'Por favor ingrese su correo y contraseña.');
+      return;
+    }
+
+    try {
+        await this.authService.login(this.email, this.password);
+        console.log('Login exitoso');
+        this.presentToast('top', 'Login exitoso');
+        this.router.navigate(['/home']);  // 
+    } catch (error) {
+        console.error('Error de login:', error);
+        this.presentToast('middle', 'Error de login. Intente nuevamente.');
+      }
   
   }
     async logout(){
