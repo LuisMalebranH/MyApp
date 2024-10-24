@@ -35,7 +35,11 @@ const routes: Routes = [
   { 
     path: 'register', loadChildren: () => import('./register/register.module').then(m => m.RegisterPageModule)
 
+  },  {
+    path: 'editar',
+    loadChildren: () => import('./pages/editar/editar.module').then( m => m.EditarPageModule)
   },
+
 
 ];
 @NgModule({

@@ -49,7 +49,7 @@ export class LoginPage {
         } else if (error.code === 'auth/invalid-email'){
           mensajeError = 'Correo electrónico inválido.';
         } else if (error.code === 'auth/too-many-requests'){
-          mensajeError = 'Usuario no encontrado.';
+          mensajeError = 'Demasiados request.';
           
 
         } 
