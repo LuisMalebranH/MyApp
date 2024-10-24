@@ -38,9 +38,22 @@ export class LoginPage {
         console.log('Login exitoso');
         this.presentToast('top', 'Login exitoso');
         this.router.navigate(['/home']);  // 
-    } catch (error) {
+    } 
+    catch (error: any) {
         console.error('Error de login:', error);
-        this.presentToast('middle', 'Error de login. Intente nuevamente.');
+        let mensajeError = 'Error de login. Intente nuevamente.';
+        if (error.code === 'auth/user-not-found'){
+          mensajeError = 'Usuario no encontrado.';
+        } else if (error.code === 'auth/wrong-password'){
+          mensajeError = 'Contraseña incorrecta.';
+        } else if (error.code === 'auth/invalid-email'){
+          mensajeError = 'Correo electrónico inválido.';
+        } else if (error.code === 'auth/too-many-requests'){
+          mensajeError = 'Usuario no encontrado.';
+          
+
+        } 
+        this.presentToast('middle',mensajeError) ;
       }
   
   }
