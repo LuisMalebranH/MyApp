@@ -42,9 +42,7 @@ export class LoginPage {
     catch (error: any) {
         console.error('Error de login:', error);
         let mensajeError = 'Error de login. Intente nuevamente.';
-        if (error.code === 'auth/user-not-found'){
-          mensajeError = 'Usuario no encontrado.';
-        } else if (error.code === 'auth/wrong-password'){
+        if (error.code === 'auth/wrong-password'){
           mensajeError = 'Contraseña incorrecta.';
         } else if (error.code === 'auth/invalid-email'){
           mensajeError = 'Correo electrónico inválido.';

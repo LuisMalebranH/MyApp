@@ -4,11 +4,12 @@ import { NavigationStart, NavigationEnd, NavigationExtras} from '@angular/router
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { ActionSheetController, ModalController, AlertController } from '@ionic/angular';
-import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { ServicioCamara } from '../services/camara.service';
 
 
-interface User {
+interface Usuario {
   usuario: string;
+  email: string;
   password: string;
 }
 /*Mover interface a un archivo único de Typescript en caso de necesitarla en el futuro, si no, solo se queda aca,
@@ -27,14 +28,15 @@ export class HomePage implements OnInit, AfterViewInit {
     { name: 'Inventarios' }
   ];
 
-  user: User = { usuario: '', password: '' };
+  usuario : Usuario = { usuario: '', email:'', password: '' };
 
   constructor(
     private actionSheetCtrl: ActionSheetController,
     private modalCtrl: ModalController,
     private toastCtrl: ToastController,
     private alertCtrl: AlertController,
-    private router: Router
+    private router: Router,
+    public servicioCamara: ServicioCamara
   ) {}
 
   esconderPassword(password: string): string {
@@ -50,21 +52,21 @@ export class HomePage implements OnInit, AfterViewInit {
       const navigation = this.router.getCurrentNavigation();
 
       if (navigation?.extras?.state) {
-        const state =navigation.extras.state as { user: User };
-        this.user = state?.user || { usuario: '', password: '' }; /* esto es un crimen que voy a arreglar despues*/
+        const state =navigation.extras.state as { user : Usuario };
+        this.usuario = state?.user || { usuario: '', password: '' }; /* esto es un crimen que voy a arreglar despues*/
 
         /*let navigationExtras: NavigationExtras = {
           state: {user: this.login}
         }; */
         console.log(navigation.extras.state);
-        console.log('User data:', this.user);
+        console.log('Datos usuario:', this.usuario);
 
-        if (this.user) {
+        if (this.usuario) {
           this.documents = this.documents.map(doc => {
             if (doc.name === 'Usuario') {
-              return { name: this.user.usuario ?? 'Usuario' }; 
+              return { name: this.usuario.usuario ?? 'Usuario' }; 
             } else if (doc.name === 'Password') {
-              return { name: this.esconderPassword(this.user.password || '')}; 
+              return { name: this.esconderPassword(this.usuario.password || '')}; 
             } else {
               return doc;
             }
@@ -161,35 +163,13 @@ export class HomePage implements OnInit, AfterViewInit {
   }
 
 
+    agregarFotoaGaleria(){
 
-
-  
-   imagenCapturada: string = '';
-   async takePicture() {
-  
-    try {
-   const image = await Camera.getPhoto({
-      quality: 90,
-      allowEditing: true,
-      resultType: CameraResultType.DataUrl,
-      source:CameraSource.Prompt
-    });
-  
-  
-    this.imagenCapturada = image.dataUrl!;
-    console.log('Imagen capturada:', this.imagenCapturada);
-    // image.webPath will contain a path that can be set as an image src.
-    // You can access the original file using image.path, which can be
-    // passed to the Filesystem API to read the raw data of the image,
-    // if desired (or pass resultType: CameraResultType.Base64 to getPhoto)
-    // var imageUrl = image.webPath;
-  
-    // Can be set to the src of an image now
-  } catch (error) {
-    console.error('Error capturing image:', error);
-      }
-  
+      this.servicioCamara.addNewToGallery();
     }
+
+  
+   
 }
 
  

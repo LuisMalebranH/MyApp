@@ -10,6 +10,10 @@ export class AuthService {
 
   constructor(private afAuth: AngularFireAuth) { }
 
+  async registrar(email: string, password: string){
+    return this.afAuth.createUserWithEmailAndPassword(email,password);
+  }
+
   async login(email: string, password: string) {
     return this.afAuth.signInWithEmailAndPassword(email,password);
   }

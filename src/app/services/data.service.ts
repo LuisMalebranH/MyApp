@@ -31,7 +31,7 @@ export class DataService {
     // añadir cosas a los arrays
     addUsuario(usuarios: Usuario) {
       this.usuarios.push(usuarios);
-      return this.firestore.collection('users').add(usuarios);
+      return this.firestore.collection('usuarios').add(usuarios);
     }
   
     addItemInventario(item: any) {

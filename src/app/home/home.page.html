@@ -25,7 +25,7 @@
         <!-- Conditionally mask password with asterisks -->
         <ion-label>
           <ng-container *ngIf="document.name === 'Password'; else normalText">
-            {{ esconderPassword(user.password) }}
+            {{ esconderPassword(usuario.password) }}
           </ng-container>
           <ng-template #normalText>
             {{ document.name }}
@@ -37,18 +37,10 @@
       </ion-item>
     </ion-list>
   </ion-content>
+  <ion-content>
+    <ion-fab-button (click)="agregarFotoaGaleria()">
+      <ion-icon name="camera"></ion-icon>
+    </ion-fab-button>
+  </ion-content>
 </div>
 
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Cámara con Capacitor
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-  <ion-button (click)="takePicture()">Tomar Foto</ion-button>
-
-  <img *ngIf="imagenCapturada" [src]="imagenCapturada" />
-</ion-content>
