@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {AngularFirestore} from '@angular/fire/compat/firestore';
+import { AuthService } from 'src/app/services/auth.service';
 import {Observable} from 'rxjs';
 
 interface Usuario {
@@ -55,16 +56,23 @@ export class DataService {
     }
 
   /* Actualizar / Update */
-    async getUserData(userId: string) {
-      ;
-    }
-    async updateUser(userId: string, updatedData: any) {
-      ;
+    
+    async editarUsuario(userId: string, updatedData: any) {
+      return this.firestore.collection('usuarios').doc(userId).update(updatedData);
     }
 
 
   /* Borrar    /  Delete */
-
+  /*async borrarUsuario(userId: string) {
+    // Delete from Firestore
+    await this.firestore.collection('usuarios').doc(userId).delete();
+    
+    // Delete from Firebase Auth
+    const user = await this.afAuth.currentUser;
+    if (user) {
+      return user.delete();
+    }
+  }*/
 
 
 }

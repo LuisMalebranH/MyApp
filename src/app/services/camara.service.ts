@@ -6,9 +6,13 @@ import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera
 @Injectable({
   providedIn: 'root',
 })
+
+
+
 export class ServicioCamara{
   imagenCapturada: string = '';
   constructor(){}
+
 
 
  public async addNewToGallery(){ 
@@ -20,12 +24,11 @@ export class ServicioCamara{
   });
 }
 
- 
-
-
-  
 }
-
+export interface UserPhoto {
+  filepath: string;
+  webviewPath?: string;
+}
 /* try {
   const image = await Camera.getPhoto({
      quality: 90,

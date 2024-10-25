@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { ActionSheetController, ModalController, AlertController } from '@ionic/angular';
 import { ServicioCamara } from '../services/camara.service';
+import { Animation, AnimationController } from '@ionic/angular';
 
 
 interface Usuario {
@@ -36,8 +37,14 @@ export class HomePage implements OnInit, AfterViewInit {
     private toastCtrl: ToastController,
     private alertCtrl: AlertController,
     private router: Router,
-    public servicioCamara: ServicioCamara
-  ) {}
+    private animationCtrl: AnimationController,
+    public servicioCamara: ServicioCamara) 
+    {}
+    //const animation: Animation = this.animationCtrl.create()
+    //.addElement(myElementRef)
+    //.duration(1000)
+    //.fromTo('opacity', '1', '0.5');
+     
 
   esconderPassword(password: string): string {
     if (password) {
@@ -80,7 +87,7 @@ export class HomePage implements OnInit, AfterViewInit {
 }
 
   ngAfterViewInit() {
-    // Logic to run after the view has been initialized
+    // Elementos que corren despues de que la vista se inicialize 
   }
   async presentActionSheet(document: { name: string }) {
     const actionSheet = await this.actionSheetCtrl.create({
