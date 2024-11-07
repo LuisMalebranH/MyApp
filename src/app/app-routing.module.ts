@@ -39,6 +39,10 @@ const routes: Routes = [
     path: 'editar',
     loadChildren: () => import('./pages/editar/editar.module').then( m => m.EditarPageModule)
   },
+  {
+    path: 'usuario',
+    loadChildren: () => import('./pages/usuario/usuario.module').then( m => m.UsuarioPageModule)
+  },
 
 
 ];
