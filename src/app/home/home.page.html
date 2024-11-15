@@ -6,6 +6,9 @@
     </ion-toolbar>
   </ion-header>
   <ion-content class="ion-padding">This is the menu content.</ion-content>
+  <ion-img
+      src="https://media1.tenor.com/m/AtKPpo2MXFEAAAAd/dog-burning.gif"
+      ></ion-img>
 </ion-menu>
 
 <div class="ion-page" id="main-content">
@@ -17,26 +20,6 @@
       <ion-title>Menu</ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-content>
-    <ion-list>
-      <ion-item *ngFor="let document of documents">
-        <ion-icon name="document" slot="start"></ion-icon>
-
-        <!-- Conditionally mask password with asterisks -->
-        <ion-label>
-          <ng-container *ngIf="document.name === 'Password'; else normalText">
-            {{ esconderPassword(usuario.password) }}
-          </ng-container>
-          <ng-template #normalText>
-            {{ document.name }}
-          </ng-template>
-        </ion-label>
-        <ion-button fill="clear" slot="end" (click)="presentActionSheet(document)">
-          <ion-icon name="ellipsis-horizontal"></ion-icon>
-        </ion-button>
-      </ion-item>
-    </ion-list>
-  </ion-content>
   <ion-content>
     <ion-fab-button (click)="agregarFotoaGaleria()">
       <ion-icon name="camera"></ion-icon>
