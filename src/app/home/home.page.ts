@@ -52,6 +52,15 @@ export class HomePage implements OnInit, AfterViewInit {
     }
     return '';
   }
+  datosUsuario(){
+    this.router.navigate(['/usuario']);
+  }
+  editarUsuario(){
+    this.router.navigate(['/editar'])
+  }
+  menuConfig(){
+    this.router.navigate(['/configuracion'])
+  }
 
   ngOnInit() {
     this.router.events.subscribe( event => {
