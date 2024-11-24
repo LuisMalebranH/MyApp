@@ -29,6 +29,8 @@ export interface UserPhoto {
   filepath: string;
   webviewPath?: string;
 }
+
+
 /* try {
   const image = await Camera.getPhoto({
      quality: 90,

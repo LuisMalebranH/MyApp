@@ -83,3 +83,23 @@
     $background-color: #c1c111;
 
 }
+:ion-button-menu {
+    --background: #93e9be !important; 
+    --background-hover: #9ce0be !important;
+    --background-activated: #88f4be !important;
+    --background-focused: #88f4be !important;
+  
+    --color: rgb(110, 38, 151) !important;
+  
+    --border-radius: 0 !important;
+    --border-color: #000 !important;
+    --border-style: solid !important;
+    --border-width: 1px !important;
+  
+    --box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25) !important;
+  
+    --ripple-color: deeppink !important;
+  
+    --padding-top: 10px !important;
+    --padding-bottom: 10px !important;
+  }
