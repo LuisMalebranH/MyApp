@@ -1,13 +1,31 @@
 import { Injectable } from '@angular/core';
 import {AngularFirestore} from '@angular/fire/compat/firestore';
 import { AuthService } from 'src/app/services/auth.service';
-import {Observable} from 'rxjs';
+import {Observable, firstValueFrom, lastValueFrom} from 'rxjs';
 
-interface Usuario {
+export interface Usuario {
 
   email: string;
   nombre: string;
   password: string;
+}
+
+export interface Inventario {
+  inventarioId?: string ;
+  nombreInventario: string;
+  ownerInventario: string; // para enlazarlo con el usuario dueño del inventario
+}
+
+export interface ItemInventario {
+
+  itemInventarioId?:string;
+  nombreItem: string;
+  categoriaItem: string;
+  cantidadItem: number;
+  tipoItem: string;
+  imagenItem: string; // Apuntar a la dirección de la imagen 
+  idInventario: string;
+
 }
 
 @Injectable({
@@ -17,7 +35,8 @@ export class DataService {
 
   
   private usuarios: Usuario[] = [];
-  private inventory: any[] = [];
+  private inventario: Inventario[] = [];
+  private itemInventario: ItemInventario[] = [];
   private images: string[] = [];  // Placeholder mientras se preparan los modulos para las imagenes.
 
   constructor(private firestore: AngularFirestore) {}
@@ -34,50 +53,76 @@ export class DataService {
       this.usuarios.push(usuarios);
       return this.firestore.collection('usuarios').add(usuarios);
     }
-  
-    addItemInventario(item: any) {
-      this.inventory.push(item);
+   
+    addInventario (inventario: Inventario) : Promise<any> {
+      return this.firestore.collection ('inventario').add(inventario);
     }
-  
+
+    addItemInventario (itemInventario: ItemInventario) : Promise<any> {
+      return this.firestore.collection ('itemsInventario').add(itemInventario);
+    }
+   
     addImagen(image: string) {
       this.images.push(image); // cambiar para que funcione con imagenes
     }
+
+
   /* Leer Datos / Read */
     getUsuario() {
       return this.firestore.collection('usuarios').valueChanges();
     }
 
-    getInventario() {
-      return this.inventory;
+    getInventario(ownerInventario: string): Observable<Inventario[]> {
+      return this.firestore
+      .collection<Inventario>('inventario', (ref) => ref.where('ownerInventario', '==', ownerInventario))
+      .valueChanges({idField: 'id'});
+       
     }
 
-    getImagen() {
-      return this.images; // cambiar para que funcione con imagenes
+    getItemInventario(inventarioId: string) : Observable<ItemInventario[]> {
+      return this.firestore.collection<ItemInventario>('itemsInventario', (ref) => ref.where('inventarioId', '==', inventarioId))
+      .valueChanges({ idField: 'id'});
     }
-
-  /* Actualizar / Update */
     
-    async editarUsuario(userId: string, updatedData: any) {
+
+ 
+    /* Actualizar / Update */
+    
+    async editarUsuario(userId: string, updatedData: Partial<Usuario>): Promise<void> {
       return this.firestore.collection('usuarios').doc(userId).update(updatedData);
     }
 
-
-  /* Borrar    /  Delete */
-  /*async borrarUsuario(userId: string) {
-    // Delete from Firestore
-    await this.firestore.collection('usuarios').doc(userId).delete();
-    
-    // Delete from Firebase Auth
-    const user = await this.afAuth.currentUser;
-    if (user) {
-      return user.delete();
+    async editarInventario(inventarioId: string, updatedData: Partial<Inventario>): Promise<void>{
+      return this.firestore.collection('inventario').doc(inventarioId).update(updatedData);
     }
-  }*/
+
+    async editarItemInventario(itemInventarioId: string, updatedData: Partial<ItemInventario>): Promise<void> {
+      return this.firestore.collection('itemsInventario').doc(itemInventarioId).update(updatedData);
+    }
 
 
+
+    /* Borrar / Delete */
+
+    async borrarUsuario(email: string): Promise<void> {
+      const referenciaUsuario = this.firestore.collection('usuarios').doc(email);
+      const usuarioTemporal = await firstValueFrom(referenciaUsuario.get());
+      if (!usuarioTemporal.exists) {
+        throw new Error('Pelmazo con el correo ${email} no existe');
+      }
+      else
+        return referenciaUsuario.delete();
+    }
+
+    borrarInventario(inventarioId: string): Promise<void> {
+      return this.firestore.collection('inventario').doc(inventarioId).delete();
+    }
+
+    borrarItemInventario(itemInventarioId: string): Promise<void> {
+      return this.firestore.collection('itemsInventario').doc(itemInventarioId).delete();
+  }
+  
 }
-
-
 
 
 
