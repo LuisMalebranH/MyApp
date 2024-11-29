@@ -6,7 +6,7 @@ import { ToastController } from '@ionic/angular';
 import { ActionSheetController, ModalController, AlertController } from '@ionic/angular';
 import { ServicioCamara } from '../services/camara.service';
 import { Animation, AnimationController } from '@ionic/angular';
-import { AuthService } from '../services/auth.service';
+
 
 interface Usuario {
   usuario: string;
@@ -38,7 +38,6 @@ export class HomePage implements OnInit, AfterViewInit {
     private alertCtrl: AlertController,
     private router: Router,
     private animationCtrl: AnimationController,
-    private authService: AuthService, 
     public servicioCamara: ServicioCamara) 
     {}
     //const animation: Animation = this.animationCtrl.create()
@@ -185,14 +184,7 @@ export class HomePage implements OnInit, AfterViewInit {
       this.servicioCamara.addNewToGallery();
     }
 
-  // Función de logout
-  logout() {
-    // Llama al servicio de autenticación para cerrar la sesión
-    this.authService.logout();
-
-    // Redirige a la página de login
-    this.router.navigate(['/login']);
-  }
+  
    
 }
 
