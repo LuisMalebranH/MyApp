@@ -35,3 +35,15 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import "@ionic/angular/css/palettes/dark.system.css";
+
+/* src/global.scss */
+
+ion-app {
+    --background: url('/assets/images/fondo.jpg') no-repeat center center fixed;
+    --background-size: cover;
+  }
+  
+  ion-content {
+    background: transparent !important; /* Asegura que el contenido no cubra el fondo */
+  }
+  
