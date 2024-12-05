@@ -108,10 +108,11 @@ export class DataService {
       const referenciaUsuario = this.firestore.collection('usuarios').doc(email);
       const usuarioTemporal = await firstValueFrom(referenciaUsuario.get());
       if (!usuarioTemporal.exists) {
-        throw new Error('Pelmazo con el correo ${email} no existe');
+        console.warn('Pelmazo con el correo ${email} no existe o es temporal');
+        return;
       }
-      else
-        return referenciaUsuario.delete();
+      await referenciaUsuario.delete();
+      console.log('Usuario ${email} ha sido eliminado');
     }
 
     borrarInventario(inventarioId: string): Promise<void> {
@@ -124,43 +125,3 @@ export class DataService {
   
 }
 
-
-
-/*
-@Injectable({
-  providedIn: 'root'
-})
-export class DataService {
-
-  private users: any[] = [];
-  private inventory: any[] = [];
-  private images: string[] = [];  // Placeholder mientras se preparan los modulos para als imagenes.
-
-  constructor() {}
-
-  // Methods to get arrays
-  getUsers() {
-    return this.users;
-  }
-
-  getInventory() {
-    return this.inventory;
-  }
-
-  getImages() {
-    return this.images;
-  }
-
-  // Methods to add data to arrays
-  addUser(user: any) {
-    this.users.push(user);
-  }
-
-  addInventoryItem(item: any) {
-    this.inventory.push(item);
-  }
-
-  addImage(image: string) {
-    this.images.push(image);
-  }
-} */

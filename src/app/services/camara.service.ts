@@ -11,6 +11,7 @@ import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera
 
 export class ServicioCamara{
   imagenCapturada: string = '';
+  public fotos: UserPhoto[] = [];
   constructor(){}
 
 
@@ -22,6 +23,10 @@ export class ServicioCamara{
     source: CameraSource.Camera,
     quality: 100
   });
+  this.fotos.unshift({
+    filepath:"pronto...",
+    webviewPath: capturedPhoto.webPath!
+  })
 }
 
 }

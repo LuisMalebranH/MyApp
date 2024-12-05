@@ -13,7 +13,8 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    loadChildren: () =>
+     import('./home/home.module').then( m => m.HomePageModule)
   },
   {
     path: 'tabs',
@@ -28,14 +29,7 @@ const routes: Routes = [
     path: 'register',
     loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
   },
-  { 
-    path: 'forgot-password', loadChildren: () => import('./forgot-password/forgot-password.module').then(m => m.ForgotPasswordPageModule) 
-
-  },
-  { 
-    path: 'register', loadChildren: () => import('./register/register.module').then(m => m.RegisterPageModule)
-
-  },  {
+  {
     path: 'editar',
     loadChildren: () => import('./pages/editar/editar.module').then( m => m.EditarPageModule)
   },
