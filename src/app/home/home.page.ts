@@ -6,7 +6,7 @@ import { ToastController } from '@ionic/angular';
 import { ActionSheetController, ModalController, AlertController } from '@ionic/angular';
 import { ServicioCamara } from '../services/camara.service';
 import { Animation, AnimationController } from '@ionic/angular';
-import { AuthService } from 'src/app/services/auth.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 interface Usuario {
@@ -28,6 +28,8 @@ export class HomePage implements OnInit, AfterViewInit {
     { name: 'Usuario' },
     { name: 'Password' },
     { name: 'Inventarios' }
+    // Creamos un formulario reactivo
+  itemForm: FormGroup;
   ];
 
   usuario : Usuario = { usuario: '', email:'', password: '' };
@@ -39,14 +41,33 @@ export class HomePage implements OnInit, AfterViewInit {
     private alertCtrl: AlertController,
     private router: Router,
     private animationCtrl: AnimationController,
-    private authService: AuthService,
+    private formBuilder: FormBuilder,
     public servicioCamara: ServicioCamara) 
+    {
+      this.itemForm = this.formBuilder.group({
+        name: ['', [Validators.required, Validators.minLength(3)]],
+        description: ['', [Validators.required, Validators.minLength(5)]],
+        quantity: ['', [Validators.required, Validators.min(1)]],
+        price: ['', [Validators.required, Validators.min(0)]],
+        category: ['', Validators.required],
+      });
+    }
+
+
     {}
     //const animation: Animation = this.animationCtrl.create()
     //.addElement(myElementRef)
     //.duration(1000)
     //.fromTo('opacity', '1', '0.5');
-     
+       onSubmit() {
+    if (this.itemForm.valid) {
+      console.log('Formulario enviado', this.itemForm.value);
+      // Aquí podrías agregar la lógica para guardar el item
+    } else {
+      console.log('Formulario no válido');
+    }
+  }
+
 
   esconderPassword(password: string): string {
     if (password) {
@@ -62,9 +83,6 @@ export class HomePage implements OnInit, AfterViewInit {
   }
   menuConfig(){
     this.router.navigate(['/configuracion'])
-  }
-  inventario(){
-    this.router.navigate(['/tabs/tab1'])
   }
 
   ngOnInit() {
@@ -189,15 +207,9 @@ export class HomePage implements OnInit, AfterViewInit {
       this.servicioCamara.addNewToGallery();
     }
 
-    // Función de logout
-logout() {
-  // Llama al servicio de autenticación para cerrar la sesión
-  this.authService.logout();
-
-  // Redirige a la página de login
-  this.router.navigate(['/login']);
-}
-}
+  
+   
+  }
 
  
 

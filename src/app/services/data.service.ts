@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import {AngularFirestore} from '@angular/fire/compat/firestore';
 import { AuthService } from 'src/app/services/auth.service';
 import {Observable, firstValueFrom, lastValueFrom} from 'rxjs';
-import { getStorage, ref, uploadString, getDownloadURL } from 'firebase/storage';
-import { ServicioCamara } from './camara.service'
 
 export interface Usuario {
 
@@ -41,9 +39,7 @@ export class DataService {
   private itemInventario: ItemInventario[] = [];
   private images: string[] = [];  // Placeholder mientras se preparan los modulos para las imagenes.
 
-  constructor(private firestore: AngularFirestore,
-              private camaraService: ServicioCamara
-  ) {}
+  constructor(private firestore: AngularFirestore) {}
   
   // güetiar los Arrays
 
@@ -62,34 +58,13 @@ export class DataService {
       return this.firestore.collection ('inventario').add(inventario);
     }
 
-    async addItemInventarioConImagen(itemInventario: ItemInventario): Promise<void> {
-      try {
-        // Captura una foto desde la cámara
-        const imagenBase64 = await this.camaraService.capturarFoto();
-        if (imagenBase64) {
-          // Sube la imagen a Firebase Storage
-          const imagePath = `inventarios/${itemInventario.idInventario}/${Date.now()}.jpeg`;
-          const urlImagen = await this.addImage(imagenBase64, imagePath);
-          
-          // Asigna la URL de la imagen al ítem y guárdalo en Firestore
-          itemInventario.imagenItem = urlImagen;
-        }
-        // Guarda el ítem en Firestore
-        await this.firestore.collection('itemsInventario').add(itemInventario);
-        console.log('Ítem añadido con imagen:', itemInventario);
-      } catch (error) {
-        console.error('Error al añadir ítem con imagen:', error);
-      }
+    addItemInventario (itemInventario: ItemInventario) : Promise<any> {
+      return this.firestore.collection ('itemsInventario').add(itemInventario);
     }
    
-    async addImage(base64Image: string, path: string): Promise<string> {
-      const storage = getStorage();
-      const storageRef = ref(storage, path);
-      await uploadString(storageRef, base64Image, 'data_url');
-      return await getDownloadURL(storageRef);
+    addImagen(image: string) {
+      this.images.push(image); // cambiar para que funcione con imagenes
     }
-
-    
 
 
   /* Leer Datos / Read */
@@ -133,11 +108,10 @@ export class DataService {
       const referenciaUsuario = this.firestore.collection('usuarios').doc(email);
       const usuarioTemporal = await firstValueFrom(referenciaUsuario.get());
       if (!usuarioTemporal.exists) {
-        console.warn('Pelmazo con el correo ${email} no existe o es temporal');
-        return;
+        throw new Error('Pelmazo con el correo ${email} no existe');
       }
-      await referenciaUsuario.delete();
-      console.log('Usuario ${email} ha sido eliminado');
+      else
+        return referenciaUsuario.delete();
     }
 
     borrarInventario(inventarioId: string): Promise<void> {
@@ -150,3 +124,43 @@ export class DataService {
   
 }
 
+
+
+/*
+@Injectable({
+  providedIn: 'root'
+})
+export class DataService {
+
+  private users: any[] = [];
+  private inventory: any[] = [];
+  private images: string[] = [];  // Placeholder mientras se preparan los modulos para als imagenes.
+
+  constructor() {}
+
+  // Methods to get arrays
+  getUsers() {
+    return this.users;
+  }
+
+  getInventory() {
+    return this.inventory;
+  }
+
+  getImages() {
+    return this.images;
+  }
+
+  // Methods to add data to arrays
+  addUser(user: any) {
+    this.users.push(user);
+  }
+
+  addInventoryItem(item: any) {
+    this.inventory.push(item);
+  }
+
+  addImage(image: string) {
+    this.images.push(image);
+  }
+} */

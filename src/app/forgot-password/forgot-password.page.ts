@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 
 @Component({
@@ -7,22 +9,32 @@ import { ToastController } from '@ionic/angular';
   styleUrls: ['./forgot-password.page.scss'],
 })
 export class ForgotPasswordPage {
-  email!: string;
+  email: string = '';
+  message: string = '';
 
-  constructor(private toastController: ToastController) {}
+  constructor(private afAuth: AngularFireAuth,private toastController: ToastController,private router: Router) {}
 
-  async onSubmit() {
-    // Aquí puedes implementar la lógica para enviar un correo de recuperación
-    if (this.email) {
-      // Simula el envío de un correo
-      const toast = await this.toastController.create({
-        message: 'Se ha enviado un correo de recuperación a ' + this.email,
-        duration: 2000,
-        position: 'top',
-      });
-      toast.present();
-      this.email = ''; // Limpiar el campo de entrada
+  async resetPassword() {
+    try {
+      // Enviar el correo de recuperación de contraseña
+      await this.afAuth.sendPasswordResetEmail(this.email);
+      this.message = 'Se ha enviado un enlace de recuperación a tu correo.';
+      this.showToast();
+    } catch (error) {
+      console.error(error);
+      this.message = 'Hubo un error, por favor intenta de nuevo.';
+      this.showToast();
     }
   }
+}
+
+async showToast() {
+  const toast = await this.toastController.create({
+    message: this.message,
+    duration: 3000,
+    position: 'top',
+  });
+  toast.present();
+}
 }
 
