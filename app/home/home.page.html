@@ -1,0 +1,97 @@
+
+<ion-menu contentId="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Menu Content</ion-title>
+    </ion-toolbar>
+  </ion-header>
+      <ion-menu-toggle>
+        <ion-button></ion-button>
+      </ion-menu-toggle>
+    <ion-content class="form-container">This is the menu content.
+      <ion-accordion-group>
+        <ion-accordion value="first">
+          <ion-item slot="header" color="translucent">
+            <ion-icon name="person-outline" aria-hidden="true" ></ion-icon>
+            <ion-label>Usuario</ion-label>
+          </ion-item>
+          <div class ='ion-padding' slot="content">
+            <ion-button  expand="block" (click)="datosUsuario()">Datos de Usuario</ion-button>
+            <ion-button  expand="block" (click)="editarUsuario()">Configuración de Usuario</ion-button>
+          </div>
+          
+        </ion-accordion>
+        <ion-accordion value="second">
+          <ion-item slot="header" color="translucent">
+            <ion-icon name="settings-outline" aria-hidden="true"></ion-icon>
+            <ion-label>Configuraciones</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <ion-button  expand="block" (click)="menuConfig()">Configuración de Usuario</ion-button>
+          </div>
+        </ion-accordion>
+        <ion-accordion value="third">
+          <ion-item slot="header" color="translucent">
+            <ion-icon name="albums-outline" aria-hidden="true"></ion-icon>
+            <ion-label>Inventarios</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">Third Content</div>
+        </ion-accordion>
+      </ion-accordion-group>
+    </ion-content>
+      <ion-img
+          src="https://media1.tenor.com/m/AtKPpo2MXFEAAAAd/dog-burning.gif"
+        ></ion-img>
+</ion-menu>
+
+<div class="ion-page" id="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <button ion-button class='ion-button-menu'>
+      Boton Inventarios
+    </button>
+    <ion-fab-button (click)="agregarFotoaGaleria()">
+      <ion-icon name="camera"></ion-icon>
+    </ion-fab-button>
+  </ion-content>
+</div>
+/* <ion-header>
+  <ion-toolbar>
+    <ion-title>Agregar Item de Inventario</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
+    <ion-item>
+      <ion-label position="floating">Nombre del Producto</ion-label>
+      <ion-input formControlName="name" type="text" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Descripción</ion-label>
+      <ion-input formControlName="description" type="text" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Cantidad</ion-label>
+      <ion-input formControlName="quantity" type="number" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Precio</ion-label>
+      <ion-input formControlName="price" type="number" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Categoría</ion-label>
+      <ion-input formControlName="category" type="text" required></ion-input>
+    </ion-item>
+
+    <ion-button expand="full" type="submit" [disabled]="!itemForm.valid">Agregar Item</ion-button>
+  </form>
+</ion-content>
+ */

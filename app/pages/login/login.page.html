@@ -1,0 +1,33 @@
+
+
+<ion-content [fullscreen]="true">
+  
+  <ion-card class="form-container">
+    <ion-toolbar color="mycolor">
+      <ion-title size="large" class="ion-text-center">LOGIN</ion-title>
+    </ion-toolbar>
+    <img src="https://www.gesmark.cl/wp-content/uploads/2019/05/ventas-onlline_publicidad-gesmark_empresa_de_marketing_y_publicidad.jpg" alt="Logo" class="logo-image" />
+    
+      <ion-card-content class="ion-content-center" >
+        <ion-item>
+          <ion-input label="Correo Electronico" labelPlacement="floating" [(ngModel)]="email"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Password" labelPlacement="floating" type="password" [(ngModel)]="password"></ion-input>
+        </ion-item>
+        <ion-row>
+          <ion-col class="ion-text" >
+            <a class="olvidarPassword" (click)="forgotPassword()">Olvidaste tu contraseña?</a>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-button  expand="block" (click)="login()">Ingresar</ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button  expand="block" (click)="register()">Registrar</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
+  </ion-card>
+</ion-content>
