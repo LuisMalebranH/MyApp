@@ -6,12 +6,41 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Inventario</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="openAddItemModal()">Agregar Ítem</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
+<ion-content>
+  <!-- Filtros -->
+  <div class="filter-container">
+    <ion-button fill="outline" (click)="filterBy('favorites')">
+      <ion-icon name="heart-outline"></ion-icon>
+    </ion-button>
+    <ion-button fill="outline" (click)="filterBy('rare')">
+      <ion-icon name="star-outline"></ion-icon>
+    </ion-button>
+    <ion-button fill="outline">
+      <ion-icon name="filter-outline"></ion-icon>
+    </ion-button>
+  </div>
+
+  <!-- Lista de Ítems -->
+  <div class="inventory-container">
+    <ion-card *ngFor="let item of filteredItems">
+      <img [src]="item.imageUrl" alt="Imagen del ítem" />
+      <ion-card-header>
+        <ion-card-title>{{ item.name }}</ion-card-title>
+        <ion-card-subtitle>{{ item.category }}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        {{ item.description }}
+      </ion-card-content>
+    </ion-card>
+  </div>
   <app-explore-container name="Tab 1 page"></app-explore-container>
 </ion-content>

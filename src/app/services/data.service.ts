@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import {AngularFirestore} from '@angular/fire/compat/firestore';
 import { AuthService } from 'src/app/services/auth.service';
 import {Observable, firstValueFrom, lastValueFrom} from 'rxjs';
+import { getStorage, ref, uploadString, getDownloadURL } from 'firebase/storage';
+import { ServicioCamara } from './camara.service'
 
 export interface Usuario {
 
@@ -39,7 +41,9 @@ export class DataService {
   private itemInventario: ItemInventario[] = [];
   private images: string[] = [];  // Placeholder mientras se preparan los modulos para las imagenes.
 
-  constructor(private firestore: AngularFirestore) {}
+  constructor(private firestore: AngularFirestore,
+              private camaraService: ServicioCamara
+  ) {}
   
   // güetiar los Arrays
 
@@ -58,13 +62,34 @@ export class DataService {
       return this.firestore.collection ('inventario').add(inventario);
     }
 
-    addItemInventario (itemInventario: ItemInventario) : Promise<any> {
-      return this.firestore.collection ('itemsInventario').add(itemInventario);
+    async addItemInventarioConImagen(itemInventario: ItemInventario): Promise<void> {
+      try {
+        // Captura una foto desde la cámara
+        const imagenBase64 = await this.camaraService.capturarFoto();
+        if (imagenBase64) {
+          // Sube la imagen a Firebase Storage
+          const imagePath = `inventarios/${itemInventario.idInventario}/${Date.now()}.jpeg`;
+          const urlImagen = await this.addImage(imagenBase64, imagePath);
+          
+          // Asigna la URL de la imagen al ítem y guárdalo en Firestore
+          itemInventario.imagenItem = urlImagen;
+        }
+        // Guarda el ítem en Firestore
+        await this.firestore.collection('itemsInventario').add(itemInventario);
+        console.log('Ítem añadido con imagen:', itemInventario);
+      } catch (error) {
+        console.error('Error al añadir ítem con imagen:', error);
+      }
     }
    
-    addImagen(image: string) {
-      this.images.push(image); // cambiar para que funcione con imagenes
+    async addImage(base64Image: string, path: string): Promise<string> {
+      const storage = getStorage();
+      const storageRef = ref(storage, path);
+      await uploadString(storageRef, base64Image, 'data_url');
+      return await getDownloadURL(storageRef);
     }
+
+    
 
 
   /* Leer Datos / Read */

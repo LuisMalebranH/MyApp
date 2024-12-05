@@ -1,0 +1,37 @@
+.inventory-container {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); /* Adjust columns as needed */
+    gap: 10px; /* Space between items */
+    padding: 10px;
+  }
+  
+  .item {
+    background: #fff;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+  }
+  
+  .item img {
+    width: 100%; /* Adjust based on your design */
+    height: auto;
+  }
+
+  .filter-container {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+    gap: 10px;
+  }
+  
+  ion-button {
+    --border-radius: 50%;
+  }
+  ion-tab-bar {
+    --background: #e6d9ff;
+    --color-selected: #6600cc;
+    --color: #333;
+  }

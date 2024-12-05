@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Agregar Ítem</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="itemForm" (ngSubmit)="agregarItem()">
+    <ion-item>
+      <ion-label position="stacked">Nombre del Ítem</ion-label>
+      <ion-input formControlName="nombreItem"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Categoría</ion-label>
+      <ion-input formControlName="categoriaItem"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Cantidad</ion-label>
+      <ion-input type="number" formControlName="cantidadItem"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Tipo</ion-label>
+      <ion-input formControlName="tipoItem"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">ID del Inventario</ion-label>
+      <ion-input formControlName="idInventario"></ion-input>
+    </ion-item>
+
+    <ion-button expand="full" type="submit" [disabled]="itemForm.invalid || isLoading">
+      {{ isLoading ? 'Guardando...' : 'Agregar Ítem' }}
+    </ion-button>
+  </form>
+</ion-content>

@@ -8,7 +8,8 @@
       <ion-menu-toggle>
         <ion-button></ion-button>
       </ion-menu-toggle>
-    <ion-content class="ion-padding">This is the menu content.
+    <ion-content class="ion-padding">
+
       <ion-accordion-group>
         <ion-accordion value="first">
           <ion-item slot="header" color="translucent">
@@ -19,8 +20,8 @@
             <ion-button  expand="block" (click)="datosUsuario()">Datos de Usuario</ion-button>
             <ion-button  expand="block" (click)="editarUsuario()">Configuración de Usuario</ion-button>
           </div>
-          
         </ion-accordion>
+
         <ion-accordion value="second">
           <ion-item slot="header" color="translucent">
             <ion-icon name="settings-outline" aria-hidden="true"></ion-icon>
@@ -30,6 +31,7 @@
             <ion-button  expand="block" (click)="menuConfig()">Configuración de Usuario</ion-button>
           </div>
         </ion-accordion>
+
           <ion-accordion value="third">
             <ion-item slot="header" color="translucent">
               <ion-icon name="albums-outline" aria-hidden="true"></ion-icon>
@@ -39,6 +41,7 @@
               <ion-button  expand="block" (click)="inventario()">Inventarios</ion-button>
             </div>
           </ion-accordion>
+
         <ion-accordion value="fourth">
           <ion-item slot="header" color="translucent">
             <ion-icon name="albums-outline" aria-hidden="true"></ion-icon>
@@ -71,6 +74,18 @@
     <ion-fab-button (click)="agregarFotoaGaleria()">
       <ion-icon name="camera"></ion-icon>
     </ion-fab-button>
+  </ion-content>
+
+  <ion-content>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6" *ngFor="let photo of servicioCamara.photo; index as position">
+          <ion-img [src]="photo.webviewPath"></ion-img>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  
+    <!-- ion-fab markup  -->
   </ion-content>
 </div>
 
