@@ -62,6 +62,9 @@ export class HomePage implements OnInit, AfterViewInit {
   menuConfig(){
     this.router.navigate(['/configuracion'])
   }
+  inventario(){
+    this.router.navigate(['/tabs/tab1'])
+  }
 
   ngOnInit() {
     this.router.events.subscribe( event => {

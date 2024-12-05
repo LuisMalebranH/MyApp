@@ -1,15 +1,13 @@
-<ion-header [translucent]="true">
-    <ion-toolbar color="mycolor">
-      <ion-title size="large" class="ion-text-center">LOGIN</ion-title>
-    </ion-toolbar>
-</ion-header>
+
 
 <ion-content [fullscreen]="true">
   <ion-card class="card center">
+    <ion-card-header color="mycolor">
+      <ion-toolbar color="mycolor">
+        <ion-card-title size="large" class="ion-text-center">LOGIN</ion-card-title>
+      </ion-toolbar>
+    </ion-card-header> 
     <img alt="login" src="https://img.freepik.com/vector-gratis/personal-tienda-verifica-cantidad-productos-que-deben-entregar-clientes-dia_1150-51079.jpg"/>
-      <ion-card-header>
-        <ion-card-title>Login</ion-card-title>
-      </ion-card-header> 
       <ion-card-content class="ion-content-center" >
         <ion-item>
           <ion-input label="Correo Electronico" labelPlacement="floating" [(ngModel)]="email"></ion-input>
