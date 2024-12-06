@@ -39,7 +39,7 @@ import { AgregarItemComponent } from 'src/app/componentes/agregar-item/agregar-i
       useFactory: adapterFactory,
     })
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, provideAnimationsAsync()],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
