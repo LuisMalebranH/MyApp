@@ -21,9 +21,10 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async'
 import { ReactiveFormsModule } from '@angular/forms'; // Importar ReactiveFormsModule
 import { CalendarComponent } from './calendar/calendar.component';
+import { AgregarItemComponent } from 'src/app/componentes/agregar-item/agregar-item.component';
 
 @NgModule({
-  declarations: [AppComponent, CalendarComponent],
+  declarations: [AppComponent, CalendarComponent, AgregarItemComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
