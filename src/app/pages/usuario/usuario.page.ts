@@ -16,9 +16,10 @@ interface Usuario {
 que sea un problema para el luis del futuro*/ 
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './usuario.page.html',
-  styleUrls: ['./usuario.page.scss'],
+    selector: 'app-home',
+    templateUrl: './usuario.page.html',
+    styleUrls: ['./usuario.page.scss'],
+    standalone: false
 })
 export class UsuarioPage implements OnInit, AfterViewInit {
   showElement = false;

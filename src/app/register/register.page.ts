@@ -5,9 +5,10 @@ import { AuthService } from '../services/auth.service';
 import { NgForm } from '@angular/forms';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.page.html',
-  styleUrls: ['./register.page.scss'],
+    selector: 'app-register',
+    templateUrl: './register.page.html',
+    styleUrls: ['./register.page.scss'],
+    standalone: false
 })
 export class RegisterPage {
   

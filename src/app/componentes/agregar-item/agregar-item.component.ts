@@ -3,9 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataService, ItemInventario } from 'src/app/services/data.service';
 
 @Component({
-  selector: 'app-agregar-item',
-  templateUrl: './agregar-item.component.html',
-  styleUrls: ['./agregar-item.component.scss'],
+    selector: 'app-agregar-item',
+    templateUrl: './agregar-item.component.html',
+    styleUrls: ['./agregar-item.component.scss'],
+    standalone: false
 })
 export class AgregarItemComponent  implements OnInit {
   itemForm: FormGroup;

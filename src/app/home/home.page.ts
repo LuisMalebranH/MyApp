@@ -19,9 +19,10 @@ interface Usuario {
 que sea un problema para el luis del futuro*/ 
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.page.html',
-  styleUrls: ['./home.page.scss'],
+    selector: 'app-home',
+    templateUrl: './home.page.html',
+    styleUrls: ['./home.page.scss'],
+    standalone: false
 })
 export class HomePage implements OnInit, AfterViewInit {
   itemForm: FormGroup = this.formBuilder.group({}); // Declarar itemForm como una propiedad de la clase

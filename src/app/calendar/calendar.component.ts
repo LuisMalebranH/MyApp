@@ -4,9 +4,10 @@ import { addDays, endOfMonth, startOfMonth } from 'date-fns';
 
 
 @Component({
-  selector: 'app-calendar',
-  templateUrl: './calendar.component.html',
-  styleUrls: ['./calendar.component.scss'],
+    selector: 'app-calendar',
+    templateUrl: './calendar.component.html',
+    styleUrls: ['./calendar.component.scss'],
+    standalone: false
 })
 export class CalendarComponent  implements OnInit {
   view: CalendarView = CalendarView.Month;

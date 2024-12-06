@@ -4,9 +4,10 @@ import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-forgot-password',
-  templateUrl: './forgot-password.page.html',
-  styleUrls: ['./forgot-password.page.scss'],
+    selector: 'app-forgot-password',
+    templateUrl: './forgot-password.page.html',
+    styleUrls: ['./forgot-password.page.scss'],
+    standalone: false
 })
 export class ForgotPasswordPage {
   email: string = '';
