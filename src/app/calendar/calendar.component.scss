@@ -1,0 +1,9 @@
+.calendar-container {
+    height: 100%; // Ajusta la altura para que el calendario ocupe todo el espacio disponible
+    overflow-y: auto;
+    background-color: white; // O un color adecuado para tu tema
+  }
+  
+  mwl-calendar-month-view {
+    width: 100%; // Asegúrate de que el calendario se ajuste al ancho
+  }

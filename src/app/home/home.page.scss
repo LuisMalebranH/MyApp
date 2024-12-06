@@ -1,34 +1,28 @@
 ion-content {
-    display: flex;
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center; /* Centra verticalmente */
-    padding: 0;
-  }
-  
-  .form-container {
-    width: 100%;
-    max-width: 500px; /* Ancho máximo del formulario */
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
-  }
-  
-  form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px; /* Espaciado entre los elementos */
-  }
-  
-  ion-button {
-    margin-top: 20px;
-  }
-  
-  .message {
-    margin-top: 10px;
-    color: green;
-    text-align: center;
-  }
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  padding: 0;
+}
+
+.form-container {
+  width: 100%;
+  max-width: 500px; /* Ancho máximo del formulario */
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Espaciado entre los elementos */
+}
+
+ion-button {
+  margin-top: 20px;
+}
   
 accordion-list {
     .nomargin {
@@ -49,38 +43,39 @@ accordion-list {
     }
 
     .active ion-icon {
-        transform: rotate(90deg);
-    }
-
-    .accordion-content {
-        transition: 0.3s ease-in-out;
-        &.active {
-            padding: .75rem;
-        }
-    }
-
-    .label {
-        margin: 0px;
-    }
-}
-.animated-element {
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-  
-    &.ng-enter {
-      opacity: 0;
-    }
-  
-    &.ng-enter-active {
-      opacity: 1;
-    }
-  
-    &.ng-leave {
-      opacity: 1;
-    }
-  
-    &.ng-leave-active {
-      opacity: 0;
-    }
+      transform: rotate(90deg);
   }
+
+  .accordion-content {
+      transition: 0.3s ease-in-out;
+      &.active {
+          padding: .75rem;
+      }
+  }
+
+  .label {
+      margin: 0px;
+  }
+}
+
+.animated-element {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+
+  &.ng-enter {
+    opacity: 0;
+  }
+
+  &.ng-enter-active {
+    opacity: 1;
+  }
+
+  &.ng-leave {
+    opacity: 1;
+  }
+
+  &.ng-leave-active {
+    opacity: 0;
+  }
+}
   

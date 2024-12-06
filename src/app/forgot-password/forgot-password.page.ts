@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireAuth} from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 
@@ -12,7 +12,10 @@ export class ForgotPasswordPage {
   email: string = '';
   message: string = '';
 
-  constructor(private afAuth: AngularFireAuth,private toastController: ToastController,private router: Router) {}
+  constructor(private afAuth: AngularFireAuth, 
+              private toastController: ToastController, 
+              private router: Router,
+            ) {}
 
   async resetPassword() {
     try {
@@ -26,15 +29,13 @@ export class ForgotPasswordPage {
       this.showToast();
     }
   }
-}
-
-async showToast() {
-  const toast = await this.toastController.create({
-    message: this.message,
-    duration: 3000,
-    position: 'top',
-  });
-  toast.present();
-}
+  async showToast() {
+    const toast = await this.toastController.create({
+      message: this.message,
+      duration: 3000,
+      position: 'top',
+    });
+    toast.present();
+  }
 }
 

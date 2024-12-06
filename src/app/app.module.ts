@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
@@ -20,26 +20,26 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async'
 import { ReactiveFormsModule } from '@angular/forms'; // Importar ReactiveFormsModule
+import { CalendarComponent } from './calendar/calendar.component';
 
 @NgModule({
-  declarations: [AppComponent],
-
-
-  imports: [BrowserModule, 
-            BrowserAnimationsModule, 
-            IonicModule.forRoot(), 
-            FormsModule,
-            AppRoutingModule, 
-            AngularFireModule.initializeApp(environment.firebase),
-            AngularFireAuthModule,
-            ReactiveFormsModule,// Agregar ReactiveFormsModule aquí
-          // Configura el módulo de calendario
+  declarations: [AppComponent, CalendarComponent],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    IonicModule.forRoot(),
+    FormsModule,
+    AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
+    ReactiveFormsModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
-      useFactory: adapterFactory
-    }
-          ], 
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy}, provideAnimationsAsync()],
+      useFactory: adapterFactory,
+    }),
+  ],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {}

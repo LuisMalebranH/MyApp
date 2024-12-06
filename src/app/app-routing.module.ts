@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { CalendarComponent } from './calendar/calendar.component';
 
 const routes: Routes = [
 
@@ -35,7 +36,8 @@ const routes: Routes = [
   { 
     path: 'register', loadChildren: () => import('./register/register.module').then(m => m.RegisterPageModule)
 
-  },  {
+  },
+  {
     path: 'editar',
     loadChildren: () => import('./pages/editar/editar.module').then( m => m.EditarPageModule)
   },
@@ -47,6 +49,8 @@ const routes: Routes = [
     path: 'configuracion',
     loadChildren: () => import('./pages/configuracion/configuracion.module').then( m => m.ConfiguracionPageModule)
   },
+  { path: '', redirectTo: 'calendar', pathMatch: 'full' },
+  { path: 'calendar', component: CalendarComponent },
 
 
 ];

@@ -6,6 +6,7 @@ import { ToastController } from '@ionic/angular';
 import { ActionSheetController, ModalController, AlertController } from '@ionic/angular';
 import { ServicioCamara } from '../services/camara.service';
 import { Animation, AnimationController } from '@ionic/angular';
+import { AuthService } from 'src/app/services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
@@ -23,13 +24,12 @@ que sea un problema para el luis del futuro*/
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit, AfterViewInit {
+  itemForm: FormGroup = this.formBuilder.group({}); // Declarar itemForm como una propiedad de la clase
   showElement = false;
   documents: { name: string }[] = [
     { name: 'Usuario' },
     { name: 'Password' },
     { name: 'Inventarios' }
-    // Creamos un formulario reactivo
-  itemForm: FormGroup;
   ];
 
   usuario : Usuario = { usuario: '', email:'', password: '' };
@@ -41,33 +41,15 @@ export class HomePage implements OnInit, AfterViewInit {
     private alertCtrl: AlertController,
     private router: Router,
     private animationCtrl: AnimationController,
-    private formBuilder: FormBuilder,
-    public servicioCamara: ServicioCamara) 
-    {
-      this.itemForm = this.formBuilder.group({
-        name: ['', [Validators.required, Validators.minLength(3)]],
-        description: ['', [Validators.required, Validators.minLength(5)]],
-        quantity: ['', [Validators.required, Validators.min(1)]],
-        price: ['', [Validators.required, Validators.min(0)]],
-        category: ['', Validators.required],
-      });
-    }
-
-
+    private authService: AuthService,
+    public servicioCamara: ServicioCamara,
+    private formBuilder: FormBuilder) 
     {}
     //const animation: Animation = this.animationCtrl.create()
     //.addElement(myElementRef)
     //.duration(1000)
     //.fromTo('opacity', '1', '0.5');
-       onSubmit() {
-    if (this.itemForm.valid) {
-      console.log('Formulario enviado', this.itemForm.value);
-      // Aquí podrías agregar la lógica para guardar el item
-    } else {
-      console.log('Formulario no válido');
-    }
-  }
-
+     
 
   esconderPassword(password: string): string {
     if (password) {
@@ -84,8 +66,19 @@ export class HomePage implements OnInit, AfterViewInit {
   menuConfig(){
     this.router.navigate(['/configuracion'])
   }
+  inventario(){
+    this.router.navigate(['/tabs/tab1'])
+  }
 
   ngOnInit() {
+
+    this.itemForm = this.formBuilder.group({
+      name: ['', [Validators.required, Validators.minLength(3)]],
+      description: ['', [Validators.required, Validators.minLength(5)]],
+      quantity: ['', [Validators.required, Validators.min(1)]],
+      price: ['', [Validators.required, Validators.min(0)]],
+      category: ['', Validators.required]
+    });
     this.router.events.subscribe( event => {
       if (event instanceof NavigationEnd){
       const navigation = this.router.getCurrentNavigation();
@@ -155,6 +148,15 @@ export class HomePage implements OnInit, AfterViewInit {
     await actionSheet.present();
   }
 
+  onSubmit() {
+    if (this.itemForm.valid) {
+      console.log('Formulario enviado', this.itemForm.value);
+      // Aquí podrías agregar la lógica para guardar el item
+    } else {
+      console.log('Formulario no válido');
+    }
+  }
+
   async moveDocumentModal(document: { name: string }) {
     const modal = await this.modalCtrl.create({
       component: 'ModalNavPage',
@@ -207,45 +209,13 @@ export class HomePage implements OnInit, AfterViewInit {
       this.servicioCamara.addNewToGallery();
     }
 
-  
-   
-  }
+    // Función de logout
+logout() {
+  // Llama al servicio de autenticación para cerrar la sesión
+  this.authService.logout();
 
- 
+  // Redirige a la página de login
+  this.router.navigate(['/login']);
+}
+}
 
-
-
-
-
-
-
-
- /*   @Input() headerColor: string = '#F53D3D';
-    @Input() textColor: string = '#FFF';
-    @Input() contentColor: string = '#F9F9F9';
-    @Input() title: string = ''; // Provide a default value or mark as optional
-    @Input() hasMargin: boolean = true;
-    @Input() expanded: boolean = false; // Initialize with a default value
-  
-    @ViewChild('accordionContent') elementView!: ElementRef; // Use the non-null assertion (`!`)
-    
-    viewHeight: number = 0; // Initialize with a default value
-  
-    constructor(public renderer: Renderer2) { }
-  
-    ngAfterViewInit() {
-      this.viewHeight = this.elementView.nativeElement.offsetHeight;
-  
-      if (!this.expanded) {
-        this.renderer.setStyle(this.elementView.nativeElement, 'height', '0px');
-      }
-    }
-    
-    ngOnInit() {}
-  
-    toggleAccordion() {
-      this.expanded = !this.expanded;
-      const newHeight = this.expanded ? this.viewHeight + 'px' : '0px';
-      this.renderer.setStyle(this.elementView.nativeElement, 'height', newHeight);
-    }
-  } */
