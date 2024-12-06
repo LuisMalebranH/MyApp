@@ -1,0 +1,77 @@
+$background-color: #c1c111;
+ion-toolbar{
+    background-color: var(--ion-color-mycoloor);
+
+    ion-input {
+      color: white;
+      opacity: 0.5;
+      margin: 10px;
+      --background: blue;  /* Definimos el color de fondo */
+      background-color: var(--background); /* Usamos el color de fondo variable */
+    }
+    
+    @media (prefers-color-scheme: dark) {
+      ion-input {
+        --background: green;  /* Cambio de color de fondo para modo oscuro */
+      }
+    }
+    
+    
+    .login-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      padding: 20px;
+    }
+
+}  
+ion-card {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+ion-card-header {
+  text-align: center;
+}
+
+ion-card-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+
+
+ion-item {
+  margin-bottom: 20px;
+}
+
+
+  ion-card-content{
+    margin-left:-2%;
+  }
+
+  
+  
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+ion-item {
+  margin-bottom: 20px;
+}
+ion-button {
+  margin-top: 10px;
+}
+
+  .summ{
+    color:#000;
+  }
+  .olvidarPassword {
+    cursor: pointer;
+    color: blue;
+    text-decoration: underline;
+}
