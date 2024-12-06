@@ -1,4 +1,9 @@
 import { Component } from '@angular/core';
+import { CalendarComponent } from 'src/app/calendar/calendar.component';
+import { CalendarModule } from 'angular-calendar';
+import { DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+
 
 
 @Component({

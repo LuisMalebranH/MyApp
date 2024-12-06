@@ -20,11 +20,11 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async'
 import { ReactiveFormsModule } from '@angular/forms'; // Importar ReactiveFormsModule
-import { CalendarComponent } from './calendar/calendar.component';
+import { CalendarComponent } from 'src/app/calendar/calendar.component';
 import { AgregarItemComponent } from 'src/app/componentes/agregar-item/agregar-item.component';
 
 @NgModule({
-  declarations: [AppComponent, CalendarComponent, AgregarItemComponent],
+  declarations: [AppComponent, AgregarItemComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -37,7 +37,7 @@ import { AgregarItemComponent } from 'src/app/componentes/agregar-item/agregar-i
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,
-    }),
+    })
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
